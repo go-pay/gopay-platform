@@ -19,3 +19,23 @@
 
 # Go workspace file
 go.work
+
+# idea ignore
+.idea/
+.vscode/
+.vendor/
+*.ipr
+*.iml
+*.iws
+
+# system ignore
+.DS_Store
+Thumbs.db
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+main
