@@ -6,7 +6,6 @@ import (
 	"gopay/app/service"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-pay/gopher/ecode"
 	"github.com/go-pay/gopher/web"
 )
 
@@ -19,7 +18,6 @@ func StartHttpServer(s *service.Service) (g *web.GinEngine) {
 	g.Gin.Use(g.CORS())
 
 	initRoute(g.Gin)
-	ecode.Success = ecode.NewV2(1, "SUCCESS", "success")
 	g.Start()
 	return g
 }
