@@ -10,5 +10,6 @@ WORKDIR /app
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && apk add --no-cache curl net-tools busybox-extras iproute2
 COPY --from=builder /build/main  /usr/bin/main
+COPY --from=builder /build/app/conf/  /app/conf/
 
-CMD ["main"]
+CMD ["main", "-conf", "/app/conf/config.yaml"]

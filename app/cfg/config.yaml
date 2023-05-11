@@ -1,0 +1,55 @@
+cfg:
+  log_level: "info"  # debug, info, warn, error
+  reload_interval: "1m"
+  reload_long_interval: "5m"
+
+http:
+  addr: ":2233"
+  read_timeout: "60s"
+  write_timeout: "60s"
+  debug: true
+  limiter:
+    rate: 1000
+    bucket_size: 1000
+
+# Redis缓存连接配置
+redis:
+  gopay:
+    addrs:
+      - "localhost:6379"
+    username: ""
+    password: "password"
+    db: 0
+    read_timeout: "10s"
+    write_timeout: "10s"
+    pool_size: 0
+    max_idle_conn: 0
+
+# MySQL数据库连接配置
+mysql:
+  gopay:
+    dsn: "root:password@tcp(localhost:3306)/gopay?timeout=15s&readTimeout=15s&writeTimeout=15s&parseTime=true&loc=Local&charset=utf8mb4"
+    max_open_conn: 200
+    max_idle_conn: 50
+    max_conn_timeout: "15s"
+    max_idle_timeout: ""
+    log_level: "error"     # silent、error、warn、info
+    colorful: false
+    slow_threshold: "500ms"
+
+# 支付平台信息配置
+pay_platform:
+  wechat:
+    appid: "wx1234567890"
+    mch_id: ""
+    api_key: ""
+    api_v3_key: ""
+    cert_file_content: ""
+    key_file_content: ""
+    pkcs12_file_content: ""
+  alipay:
+    appid: "wx1234567890"
+    private_key: ""
+    app_cert_content: ""
+    root_cert_content: ""
+    public_cert_content: ""
