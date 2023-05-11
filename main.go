@@ -15,12 +15,13 @@ import (
 )
 
 func main() {
-	xlog.Warnf("welcome to gopay platform")
 	// Parse Config
 	err := conf.ParseYaml(cfg.Conf)
 	if err != nil {
 		panic(err)
 	}
+	cfg.SetLogLevel(cfg.Conf.Cfg.LogLevel)
+
 	// New Service
 	svc := service.New(cfg.Conf)
 	// Start Web Server

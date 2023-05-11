@@ -3,6 +3,7 @@ package cfg
 import (
 	"github.com/go-pay/gopher/orm"
 	"github.com/go-pay/gopher/web"
+	"github.com/go-pay/gopher/xlog"
 	"github.com/go-pay/gopher/xtime"
 )
 
@@ -51,4 +52,18 @@ type Alipay struct {
 	AppCertContent    string `yaml:"app_cert_content"`
 	RootCertContent   string `yaml:"root_cert_content"`
 	PublicCertContent string `yaml:"public_cert_content"`
+}
+
+// SetLogLevel debug, info, warn, error
+func SetLogLevel(level string) {
+	switch level {
+	case "debug":
+		xlog.Level = xlog.DebugLevel
+	case "info":
+		xlog.Level = xlog.InfoLevel
+	case "warn":
+		xlog.Level = xlog.WarnLevel
+	case "error":
+		xlog.Level = xlog.ErrorLevel
+	}
 }
