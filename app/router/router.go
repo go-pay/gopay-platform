@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/go-pay/gopher/ecode"
 	"net/http/pprof"
 
 	"gopay/app/service"
@@ -17,6 +18,7 @@ func StartHttpServer(s *service.Service) (g *web.GinEngine) {
 	g.Gin.TrustedPlatform = "x_forwarded_for"
 	g.Gin.Use(g.CORS())
 
+	ecode.Success = ecode.NewV2(0, "SUCCESS", "成功")
 	initRoute(g.Gin)
 	g.Start()
 	return g
@@ -35,5 +37,20 @@ func initRoute(g *gin.Engine) {
 	monitor := g.Group("/gopay/v1/monitor")
 	{
 		monitor.GET("/ping", func(c *gin.Context) { web.JSON(c, "PingOK: "+c.ClientIP(), nil) })
+	}
+	v1 := g.Group("/gopay/v1")
+	{
+		user := v1.Group("/user")
+		{
+			user.POST("/getInfo", userGetInfo)
+		}
+		pay := v1.Group("/payment")
+		{
+			pay.POST("/alipay")
+		}
+		order := v1.Group("/order")
+		{
+			order.POST("/create")
+		}
 	}
 }

@@ -16,12 +16,12 @@ type Dao struct {
 
 func New(c *cfg.Config) (d *Dao) {
 	db := orm.InitGorm(c.MySQL.Gopay)
-	rds := orm.InitRedis(c.Redis.Gopay)
+	//rds := orm.InitRedis(c.Redis.Gopay)
 
 	d = &Dao{
-		cfg:      c,
-		GopayDB:  db,
-		GopayRds: rds,
+		cfg:     c,
+		GopayDB: db,
+		//GopayRds: rds,
 	}
 	return
 }
