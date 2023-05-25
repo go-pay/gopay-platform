@@ -6,6 +6,7 @@ import (
 	"gopay/app/service"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-pay/gopher/ecode"
 	"github.com/go-pay/gopher/web"
 )
 
@@ -15,8 +16,9 @@ func StartHttpServer(s *service.Service) (g *web.GinEngine) {
 	srv = s
 	g = web.InitGin(s.Cfg.Http)
 	g.Gin.TrustedPlatform = "x_forwarded_for"
-	g.Gin.Use(g.CORS())
+	g.Gin.Use(g.CORS(), g.Logger(false))
 
+	ecode.Success = ecode.NewV2(0, "SUCCESS", "success")
 	initRoute(g.Gin)
 	g.Start()
 	return g

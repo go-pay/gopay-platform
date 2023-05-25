@@ -4,23 +4,28 @@ go 1.19
 
 require (
 	github.com/gin-gonic/gin v1.9.0
-	github.com/go-pay/gopher v1.0.25-0.20230511013854-7309b0cb26f3
+	github.com/go-pay/gopher v1.0.26-0.20230525061135-a2cdb29aae4e
 	github.com/redis/go-redis/v9 v9.0.4
 	gorm.io/gorm v1.25.1
 )
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
+	github.com/aliyun/aliyun-log-go-sdk v0.1.45 // indirect
 	github.com/bytedance/sonic v1.8.8 // indirect
+	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
+	github.com/go-kit/kit v0.10.0 // indirect
+	github.com/go-logfmt/logfmt v0.5.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.13.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
@@ -33,6 +38,8 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.7 // indirect
+	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
@@ -48,6 +55,7 @@ require (
 	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
 	google.golang.org/grpc v1.55.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/mysql v1.5.0 // indirect
+	gorm.io/driver/mysql v1.5.1 // indirect
 )
