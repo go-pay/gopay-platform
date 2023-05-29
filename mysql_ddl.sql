@@ -34,22 +34,22 @@ CREATE TABLE IF NOT EXISTS `company`
 
 CREATE TABLE IF NOT EXISTS `payment_info`
 (
-    `id`                     BIGINT         NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
-    `payment_type`           TINYINT        NOT NULL DEFAULT 0 COMMENT '支付类型：0-微信，1-支付宝',
-    `wx_mch_id`              VARCHAR(16)    NOT NULL DEFAULT '' COMMENT '微信商户号',
-    `wx_api_key`             VARCHAR(32)    NOT NULL DEFAULT '' COMMENT '微信API密钥',
-    `wx_apiv3_key`           VARCHAR(32)    NOT NULL DEFAULT '' COMMENT '微信APIv3密钥',
-    `wx_serial_no`           VARCHAR(64)    NOT NULL DEFAULT '' COMMENT '微信APIv3证书序列号',
-    `wx_private_key`         VARCHAR(2048)  NOT NULL DEFAULT '' COMMENT '微信APIv3私钥内容',
-    `wx_platform_serial_no`  VARCHAR(64)    NOT NULL DEFAULT '' COMMENT '微信平台公钥证书序列号',
-    `wx_platform_public_key` VARCHAR(2048)  NOT NULL DEFAULT '' COMMENT '微信平台公钥内容',
-    `ali_private_key`        VARCHAR(2048)  NOT NULL DEFAULT '' COMMENT '支付宝应用私钥内容',
-    `ali_public_key`         VARCHAR(2048)  NOT NULL DEFAULT '' COMMENT '支付宝应用公钥内容',
-    `ali_root_cert`          VARCHAR(10240) NOT NULL DEFAULT '' COMMENT '支付宝根证书内容',
-    `ali_app_cert`           VARCHAR(2048)  NOT NULL DEFAULT '' COMMENT '支付宝APP公钥证书内容',
-    `ali_alipay_public_cert` VARCHAR(2048)  NOT NULL DEFAULT '' COMMENT '支付宝公钥证书内容',
-    `ctime`                  TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `utime`                  TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+    `id`                     BIGINT        NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
+    `payment_type`           TINYINT       NOT NULL DEFAULT 0 COMMENT '支付类型：0-微信，1-支付宝',
+    `wx_mch_id`              VARCHAR(16)   NOT NULL DEFAULT '' COMMENT '微信商户号',
+    `wx_api_key`             VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '微信API密钥',
+    `wx_apiv3_key`           VARCHAR(32)   NOT NULL DEFAULT '' COMMENT '微信APIv3密钥',
+    `wx_serial_no`           VARCHAR(64)   NOT NULL DEFAULT '' COMMENT '微信APIv3证书序列号',
+    `wx_private_key`         VARCHAR(2048) NOT NULL DEFAULT '' COMMENT '微信APIv3私钥内容',
+    `wx_platform_serial_no`  VARCHAR(64)   NOT NULL DEFAULT '' COMMENT '微信平台公钥证书序列号',
+    `wx_platform_public_key` VARCHAR(2048) NOT NULL DEFAULT '' COMMENT '微信平台公钥内容',
+    `ali_private_key`        VARCHAR(2048) NOT NULL DEFAULT '' COMMENT '支付宝应用私钥内容',
+    `ali_public_key`         VARCHAR(2048) NOT NULL DEFAULT '' COMMENT '支付宝应用公钥内容',
+    `ali_root_cert`          TEXT          NULL COMMENT '支付宝根证书内容',
+    `ali_app_cert`           VARCHAR(2048) NOT NULL DEFAULT '' COMMENT '支付宝APP公钥证书内容',
+    `ali_alipay_public_cert` VARCHAR(2048) NOT NULL DEFAULT '' COMMENT '支付宝公钥证书内容',
+    `ctime`                  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `utime`                  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
 
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
