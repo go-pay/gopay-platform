@@ -47,11 +47,11 @@ type WechatPay struct {
 }
 
 type Alipay struct {
-	Appid             string `yaml:"appid"`
-	PrivateKey        string `yaml:"private_key"`
-	AppCertContent    string `yaml:"app_cert_content"`
-	RootCertContent   string `yaml:"root_cert_content"`
-	PublicCertContent string `yaml:"public_cert_content"`
+	Appid                   string `yaml:"appid"`
+	PrivateKey              string `yaml:"private_key"`
+	AppPublicCertContent    string `yaml:"app_public_cert_content"`
+	AlipayRootCertContent   string `yaml:"alipay_root_cert_content"`
+	AlipayPublicCertContent string `yaml:"alipay_public_cert_content"`
 }
 
 // SetLogLevel debug, info, warn, error

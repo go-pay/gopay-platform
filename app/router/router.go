@@ -10,10 +10,10 @@ import (
 	"github.com/go-pay/gopher/web"
 )
 
-var srv *service.Service
+var svc *service.Service
 
 func StartHttpServer(s *service.Service) (g *web.GinEngine) {
-	srv = s
+	svc = s
 	g = web.InitGin(s.Cfg.Http)
 	g.Gin.TrustedPlatform = "x_forwarded_for"
 	g.Gin.Use(g.CORS())
@@ -58,11 +58,14 @@ func initRoute(g *gin.Engine) {
 				manage.POST("/getPaymentInfoList") // 获取支付信息列表
 				manage.POST("/addPaymentInfo")     // 添加支付配置信息
 			}
-			ali := pay.POST("/alipay")
+			// 支付宝支付
+			ali := pay.Group("/alipay")
 			{
-				ali.POST("/getPaymentQrcode") // 获取支付宝支付二维码
+				ali.POST("/getPaymentQrcode", alipayGetPaymentQrcode) // 获取支付宝支付二维码
+				ali.POST("/getPagePayUrl", alipayPagePayUrl)          // 获取支付宝网页支付链接
 			}
-			wx := pay.POST("/wechat")
+			// 微信支付
+			wx := pay.Group("/wechat")
 			{
 				wx.POST("/getPaymentQrcode") // 获取微信支付二维码
 			}
