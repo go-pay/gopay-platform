@@ -5,8 +5,8 @@ import (
 	"gopay/ecode"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-pay/gopher/web"
-	"github.com/go-pay/gopher/xlog"
+	"github.com/go-pay/web"
+	"github.com/go-pay/xlog"
 )
 
 func alipayGetPaymentQrcode(c *gin.Context) {

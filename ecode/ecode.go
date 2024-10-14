@@ -1,6 +1,6 @@
 package ecode
 
-import "github.com/go-pay/gopher/ecode"
+import "github.com/go-pay/ecode"
 
 const (
 	StatusCodeNotOK = "STATUS_CODE_NOT_200"
@@ -8,7 +8,7 @@ const (
 )
 
 var (
-	New = ecode.NewV2
+	New = ecode.New
 
 	// service error
 	RequestErr         = New(10400, "PARAM_ERROR", "parameter error")

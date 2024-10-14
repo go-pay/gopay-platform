@@ -1,20 +1,20 @@
 package dao
 
 import (
-	"gopay/app/cfg"
+	"gopay/app/conf"
 
-	"github.com/go-pay/gopher/orm"
+	"github.com/go-pay/orm"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
 type Dao struct {
-	cfg      *cfg.Config
+	cfg      *conf.Config
 	GopayDB  *gorm.DB
 	GopayRds *redis.Client
 }
 
-func New(c *cfg.Config) (d *Dao) {
+func New(c *conf.Config) (d *Dao) {
 	db := orm.InitGorm(c.MySQL.Gopay)
 	//rds := orm.InitRedis(c.Redis.Gopay)
 

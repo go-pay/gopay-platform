@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-pay/gopay"
 	"github.com/go-pay/gopay/alipay"
-	"github.com/go-pay/gopher/xlog"
+	"github.com/go-pay/xlog"
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
 )

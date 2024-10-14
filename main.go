@@ -1,47 +1,26 @@
 package main
 
 import (
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
+	"context"
 
-	"gopay/app/cfg"
+	"gopay/app/conf"
 	"gopay/app/router"
 	"gopay/app/service"
-
-	"github.com/go-pay/gopher/conf"
-	"github.com/go-pay/gopher/xlog"
+	"gopay/pkg/config"
 )
 
 func main() {
 	// Parse Config
-	err := conf.ParseYaml(cfg.Conf)
+	err := config.ParseYaml(conf.Conf)
 	if err != nil {
 		panic(err)
 	}
-	cfg.SetLogLevel(cfg.Conf.Cfg.LogLevel)
+	config.SetLogLevel(conf.Conf.Cfg.LogLevel)
 
 	// New Service
-	svc := service.New(cfg.Conf)
+	svc := service.New(conf.Conf)
 	// Start Web Server
-	httpServer := router.StartHttpServer(svc)
-
-	ch := make(chan os.Signal)
-	signal.Notify(ch, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)
-	for {
-		si := <-ch
-		switch si {
-		case syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT:
-			xlog.Warnf("get a signal %s, stop the process", si.String())
-			httpServer.Close()
-			// wait for a second
-			time.Sleep(time.Second)
-			svc.Close()
-			return
-		case syscall.SIGHUP:
-		default:
-			return
-		}
-	}
+	router.NewHttpServer(svc).AddExitHook(func(c context.Context) {
+		svc.Close()
+	}).Start()
 }

@@ -2,22 +2,24 @@ package service
 
 import (
 	"context"
-	"github.com/go-pay/gopay"
-	"github.com/go-pay/gopay/alipay/cert"
 	"sync"
 
-	"gopay/app/cfg"
+	"gopay/app/conf"
 	"gopay/app/dao"
 
+	"github.com/go-pay/gopay"
 	"github.com/go-pay/gopay/alipay"
-	"github.com/go-pay/gopher/smap"
+	"github.com/go-pay/gopay/alipay/cert"
+	"github.com/go-pay/gopay/wechat/v3"
+	"github.com/go-pay/smap"
 )
 
 type Service struct {
 	rwMu   sync.RWMutex
-	Cfg    *cfg.Config
+	Cfg    *conf.Config
 	dao    *dao.Dao
 	alipay *alipay.Client
+	wxpay  *wechat.ClientV3
 
 	// cache
 	kvMap smap.Map[string, string] // key: k, value: v
@@ -28,7 +30,8 @@ var (
 	ctx = context.Background()
 )
 
-func New(c *cfg.Config) (s *Service) {
+func New(c *conf.Config) (s *Service) {
+	// 初始化支付宝 client
 	alipayCli, err := alipay.NewClient(c.PayPlatform.Alipay.Appid, c.PayPlatform.Alipay.PrivateKey, false)
 	if err != nil {
 		panic(err)
@@ -52,10 +55,17 @@ func New(c *cfg.Config) (s *Service) {
 		panic(err)
 	}
 
+	// 初始化微信v3 client
+	//wxCli, err := wechat.NewClientV3(c.PayPlatform.Wechat.MchId, c.PayPlatform.Wechat.SerialNo, c.PayPlatform.Wechat.ApiV3Key, c.PayPlatform.Wechat.KeyFileContent)
+	//if err != nil {
+	//	panic(err)
+	//}
+
 	srv = &Service{
 		Cfg:    c,
 		dao:    dao.New(c),
 		alipay: alipayCli,
+		//wxpay:  wxCli,
 	}
 
 	// loop job

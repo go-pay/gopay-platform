@@ -6,9 +6,8 @@ import (
 	"os"
 	"testing"
 
-	"gopay/app/cfg"
-
-	"github.com/go-pay/gopher/conf"
+	"gopay/app/conf"
+	"gopay/pkg/config"
 )
 
 var (
@@ -19,9 +18,9 @@ var (
 func TestMain(m *testing.M) {
 	os.Setenv("RUNTIME_ENV", "local")
 	flag.Set("conf", "../cfg/config.yaml")
-	if err := conf.ParseYaml(cfg.Conf); err != nil {
+	if err := config.ParseYaml(conf.Conf); err != nil {
 		panic(err)
 	}
-	d = New(cfg.Conf)
+	d = New(conf.Conf)
 	os.Exit(m.Run())
 }
