@@ -4,17 +4,17 @@ go 1.22
 
 require (
 	github.com/BurntSushi/toml v1.4.0
-	github.com/bytedance/sonic v1.12.3
+	github.com/bytedance/sonic v1.12.5
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-pay/ecode v0.0.5
-	github.com/go-pay/gopay v1.5.106
+	github.com/go-pay/gopay v1.5.107-0.20241212162838-fa4fda4a3b6c
 	github.com/go-pay/orm v0.0.12
 	github.com/go-pay/smap v0.0.2
 	github.com/go-pay/web v0.0.9
 	github.com/go-pay/xlog v0.0.3
 	github.com/go-pay/xtime v0.0.2
 	github.com/google/uuid v1.6.0
-	github.com/redis/go-redis/v9 v9.6.2
+	github.com/redis/go-redis/v9 v9.7.0
 	github.com/shopspring/decimal v1.4.0
 	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/gorm v1.25.12
@@ -30,7 +30,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.5 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-pay/crypto v0.0.1 // indirect
-	github.com/go-pay/errgroup v0.0.2 // indirect
+	github.com/go-pay/errgroup v0.0.3 // indirect
 	github.com/go-pay/limiter v0.0.1 // indirect
 	github.com/go-pay/util v0.0.4 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
@@ -51,10 +51,10 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	golang.org/x/arch v0.11.0 // indirect
-	golang.org/x/crypto v0.28.0 // indirect
+	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/net v0.30.0 // indirect
-	golang.org/x/sys v0.26.0 // indirect
-	golang.org/x/text v0.19.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20241007155032-5fefd90f89a9 // indirect
 	google.golang.org/grpc v1.67.1 // indirect
 	google.golang.org/protobuf v1.35.1 // indirect
