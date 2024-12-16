@@ -20,6 +20,7 @@ type Cfg struct {
 	LogLevel           string         `yaml:"log_level"`
 	ReloadInterval     xtime.Duration `yaml:"reload_interval"`
 	ReloadLongInterval xtime.Duration `yaml:"reload_long_interval"`
+	WxNotifyUrl        string         `json:"wx_notify_url"`
 }
 
 type Redis struct {
@@ -27,7 +28,8 @@ type Redis struct {
 }
 
 type MySQL struct {
-	Gopay *orm.MySQLConfig `yaml:"gopay"`
+	BizDB *orm.MySQLConfig `yaml:"biz_db"`
+	PayDB *orm.MySQLConfig `yaml:"pay_db"`
 }
 
 type Payment struct {

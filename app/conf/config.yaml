@@ -2,6 +2,7 @@ cfg:
   log_level: "info"  # debug, info, warn, error
   reload_interval: "1m"
   reload_long_interval: "5m"
+  wx_notify_url: "https://localhost:2233/v1/wx/notify"
 
 http:
   addr: ":2233"
@@ -27,8 +28,17 @@ redis:
 
 # MySQL数据库连接配置
 mysql:
-  gopay:
-    dsn: "root:Ming521.@tcp(118.31.32.92:3306)/gopay?timeout=15s&readTimeout=15s&writeTimeout=15s&parseTime=true&loc=Local&charset=utf8mb4"
+  biz_db:
+    dsn: "root:password@tcp(127.0.0.1:3306)/biz_db?timeout=15s&readTimeout=15s&writeTimeout=15s&parseTime=true&loc=Local&charset=utf8mb4"
+    max_open_conn: 200
+    max_idle_conn: 50
+    max_conn_timeout: "15s"
+    max_idle_timeout: "0s"
+    log_level: "error"     # silent、error、warn、info
+    colorful: true
+    slow_threshold: "500ms"
+  pay_db:
+    dsn: "root:password@tcp(127.0.0.1:3306)/pay_db?timeout=15s&readTimeout=15s&writeTimeout=15s&parseTime=true&loc=Local&charset=utf8mb4"
     max_open_conn: 200
     max_idle_conn: 50
     max_conn_timeout: "15s"

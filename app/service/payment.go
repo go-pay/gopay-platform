@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"github.com/go-pay/gopay/wechat/v3"
+	"gopay/ecode"
 	"strings"
 
 	"gopay/app/model"
@@ -63,6 +65,39 @@ func (s *Service) AlipayPagePayUrl(c context.Context, req *model.AlipayPagePayUr
 	rsp = &model.AlipayPagePayUrlRsp{
 		OutTradeNo: tradeNo,
 		PagePayUrl: pagePayUrl,
+	}
+	return rsp, nil
+}
+
+// WxGetPaymentQrCode 支付码获取(用户扫码支付)
+func (s *Service) WxGetPaymentQrCode(c context.Context, req *model.WxGetPaymentQrCodeReq) (rsp *model.AlipayGetPaymentQrcodeRsp, err error) {
+	// goods id 查询商品
+	s.dao.GoodsById(req.GoodsId)
+
+
+	// 生成单号
+	tradeNo := strings.ReplaceAll(uuid.New().String(), "-", "")
+	xlog.Infof("tradeNo: %s, goods_id: %d", tradeNo, req.GoodsId)
+	// 构造参数
+	bm := make(gopay.BodyMap)
+	bm.Set("out_trade_no", tradeNo).
+		Set("description", "商品1").
+		Set("notify_url", s.Config.Cfg.WxNotifyUrl).
+		Set("amount", amount)
+	// 发起支付
+	wxRsp, err := s.wxpay.V3TransactionNative(c, bm)
+	if err != nil {
+		xlog.Errorf("s.wxpay.V3TransactionNative(%v), err:%v", bm, err)
+		return nil, err
+	}
+	if wxRsp.Code != wechat.Success {
+		return nil, ecode.WxNativePayErr(wxRsp.Error)
+	}
+	xlog.Warnf("Wechat order success, tradeNo: %s, codeUrl: %s", tradeNo, wxRsp.Response.CodeUrl)
+	// return
+	rsp = &model.AlipayGetPaymentQrcodeRsp{
+		OutTradeNo: aliRsp.Response.OutTradeNo,
+		QrCode:     aliRsp.Response.QrCode,
 	}
 	return rsp, nil
 }

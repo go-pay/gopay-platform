@@ -40,3 +40,19 @@ func alipayPagePayUrl(c *gin.Context) {
 	}
 	web.JSON(c, rsp, nil)
 }
+
+func wxGetPaymentQrcode(c *gin.Context) {
+	req := new(model.WxGetPaymentQrCodeReq)
+	err := c.ShouldBindJSON(req)
+	if err != nil {
+		xlog.Errorf("c.ShouldBindJSON(%v), err:%v", req, err)
+		web.JSON(c, nil, ecode.RequestErr)
+		return
+	}
+	rsp, err := svc.WxGetPaymentQrCode(c, req)
+	if err != nil {
+		web.JSON(c, nil, err)
+		return
+	}
+	web.JSON(c, rsp, nil)
+}

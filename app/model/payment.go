@@ -19,3 +19,7 @@ type AlipayPagePayUrlRsp struct {
 	OutTradeNo string `json:"out_trade_no"`
 	PagePayUrl string `json:"page_pay_url"`
 }
+
+type WxGetPaymentQrCodeReq struct {
+	GoodsId int `json:"goods_id"`
+}

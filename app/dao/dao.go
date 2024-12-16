@@ -4,14 +4,13 @@ import (
 	"gopay/app/conf"
 
 	"github.com/go-pay/orm"
-	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
 type Dao struct {
-	cfg      *conf.Config
-	GopayDB  *gorm.DB
-	GopayRds *redis.Client
+	cfg   *conf.Config
+	BizDB *gorm.DB
+	PayDB *gorm.DB
 }
 
 func New(c *conf.Config) (d *Dao) {

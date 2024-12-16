@@ -15,4 +15,8 @@ var (
 	HeaderVerifyFailed = New(10401, "HEADER_ERROR", "header verify failed")
 	ServerErr          = New(10500, "SERVER_ERROR", "server error")
 	UnAvailableErr     = New(10501, "UNAVAILABLE", "unavailable")
+
+	WxNativePayErr = func(msg string) error {
+		return New(10001, "WX_NATIVE_PAY_ERR", "wechat native pay failed: "+msg)
+	}
 )

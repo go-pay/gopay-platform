@@ -13,7 +13,7 @@ var svc *service.Service
 
 func NewHttpServer(s *service.Service) (g *web.GinEngine) {
 	svc = s
-	g = web.InitGin(s.Cfg.Http)
+	g = web.InitGin(s.Config.Http)
 	g.Gin.TrustedPlatform = "x_forwarded_for"
 	g.Gin.Use(middleware.CORS())
 
@@ -27,7 +27,7 @@ func initRoute(g *gin.Engine) {
 	{
 		monitor.GET("/ping", func(c *gin.Context) { web.JSON(c, "PingOK: "+c.ClientIP(), nil) })
 	}
-	v1 := g.Group("/gopay/v1")
+	v1 := g.Group("/v1/pay")
 	{
 		// sso
 		sso := v1.Group("/sso")
@@ -56,7 +56,7 @@ func initRoute(g *gin.Engine) {
 			// 微信支付
 			wx := pay.Group("/wechat")
 			{
-				wx.POST("/getPaymentQrcode") // 获取微信支付二维码
+				wx.POST("/getPaymentQrcode", wxGetPaymentQrcode) // 获取微信支付二维码
 			}
 		}
 		// 订单相关
