@@ -33,7 +33,7 @@ var (
 func New(c *conf.Config) (s *Service) {
 	srv = &Service{
 		Config: c,
-		dao:    dao.New(c),
+		//dao:    dao.New(c),
 	}
 	// 初始化支付宝 client
 	if c.PayPlatform.Alipay.Appid != "" && c.PayPlatform.Alipay.PrivateKey != "" {
@@ -67,6 +67,7 @@ func New(c *conf.Config) (s *Service) {
 	if err != nil {
 		panic(err)
 	}
+	wxCli.DebugSwitch = gopay.DebugOn
 	srv.wxpay = wxCli
 
 	// loop job

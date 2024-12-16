@@ -7,9 +7,9 @@ import (
 
 func (d *Dao) GoodsById(c context.Context, goodsId int) (sg *dm.ShopGoods, err error) {
 	sg = new(dm.ShopGoods)
-	err = d.BizDB.Select([]string{"id", "developer_id", "appid", "request_order_url", "report_callback_url", "report_type"}).
+	err = d.BizDB.Select([]string{"id", "sku_id", "goods_name", "goods_desc", "unit_price"}).
 		Table(sg.TableName()).
-		Where("developer_id = ?", goodsId).
+		Where("id = ?", goodsId).
 		Take(sg).Error
 	if err != nil {
 		return nil, err

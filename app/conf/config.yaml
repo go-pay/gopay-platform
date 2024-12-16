@@ -50,13 +50,41 @@ mysql:
 # 支付平台信息配置
 pay_platform:
   wechat:
-    appid: "wx1234567890"
-    mch_id: ""
-    serial_no: ""
-    api_v3_key: ""
-    key_file_content: ""
+    appid: "wxc2589951472b8802"
+    mch_id: "1641941819"
+    serial_no: "5754E217E08C858F4D5302485152C6DE57E955C3"
+    api_v3_key: "adcgbhkml123456jgfdcjuiljgfdcjil"
+    key_file_content: |
+      -----BEGIN PRIVATE KEY-----
+      MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC4mfL8EmLG9Qo9
+      EHo17xL8pW3dxRPS3xjUnvt4FKobzqXgO/6FFs23yMisw5GGKQcp0iLJ3nUmuex3
+      5S8puGbzd5Ce5gCLOk44DInMmFUHqJAbl+O8CqpfC4j5PP+uCkDBj5wkvoeLMnjk
+      gzayft5LZYV4qFMplOqv0jDbq27dmU8EqHlR8kgNp1OBEISCmWq4xCPXpntmuu+T
+      Z23SEcopXpQTi8LxQQgxbAM2xexCezuikjhAz5g/TgyUTXL4wSKOCTY05fUCiCLM
+      JtZ8IAs972LxwtFNbsh/9AVvARSDUZprlWGtlEow4xOkoPvFAcv+ibYYVbcCinRT
+      qvNQjGJ7AgMBAAECggEAXOtA35jxl2voR2xv144LZJhwgNyeadpaSUvtEDh2l6Cg
+      5gnMx3j++69ZM30NVxZ3wJlBYZNULLYRTRhTcRCc4Zghd5oWU/55OMU254EV69Dx
+      GLKPsys7LrRDshD+McB/b+61jdlJqMszBvL1KUuq4RCs6lrv4VJP/0gxx6C3IVsa
+      2lxfAF/YGED6ch0ma8QbyxV074P1wBe4nQ3hbHCglFAJDUT0sKdP8ODWyZqKJjgd
+      e4erURiuH7JFKrdFlbwF8wwt5eXbNyNkdExCkxvM6cBNYKIHNv/m+Ba5EatK2pMg
+      3FDhVl+5R5HlN8hqDPBvq7ZyEyHYHxNF98SpYedUoQKBgQDi6wcfwMKsabNJIePt
+      MENKGR+VjWn6BB5BS0uRl9ZgEu8xwCH7JcfS/q2QKH0AcCNu2g7F+NyLwZA8mfuw
+      ObA17F53RISzDYo49/5wJMStA0d/sFPRVvK8ktikvtm8vopRCrBQ3alFaoXfWKtX
+      berkIc/dudKncmngv+Huc679TwKBgQDQQoySjb/S1OXFf14RNwANcjggnMzO1WR1
+      gCaM5fAxVhi8hcczT3ZY7PTWPuquSpSc25hYqnHEQSUsmSfiHyCaUQEglGfUbz6T
+      gSWlVFvFfhGXUhOVY5pEDKnBqLNt8uwDYk8nKvxfo5qZMyz5keTcp7DEZa7ltjhQ
+      sKofqav1FQKBgCqdoRThiq3+m+EcMEYXTkvYNApOKJz/sP7qOSL6tRQN+kYJo1gb
+      XE/P7KCqOe+fH8htw2CCwEiu7Xu0H4SVEPbPkV4szA8kd9UDHhHJlfY4K3FbmCI0
+      hhnMKkumXBYKYsedjkdhmayjuMidSnB9ACQgBX3KrDkuT5wZ7UBvEWoZAoGAWKfr
+      5buYLG1bPz8gUV3DlPXJtQBrI6Wt9WNPhe2g2a/YKfEdQteR/vsoo0f3aajwKPJG
+      oYA1nCFLbPfqBZXQsEDJpQ/oP4P39J0m5IHL63/mhy92jMLw+gUWAw4JDEY8eJhS
+      L89ZznD8MDmb7MZR0ilE0+ahlMKEqLz8Pyxgup0CgYEAk9EvewHhcuFwAStTN4zf
+      EqHfxkPdjGs4EXGTXXXhwPtu9Kp180jAIiges4etmsNbznkzposez+K+iG186g+V
+      mkgKgkvSfxgtMrbnJUjwFrJGcu3HxDGrPy/uUV6hFHuY25u7jlR5oyw1f8DAUolU
+      CuVW0u9PIpT8cOLhv5URzCg=
+      -----END PRIVATE KEY-----
   alipay: # 以下配置文件为新沙箱环境配置
-    appid: "2021000122672388"
+    appid: ""
     private_key: "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC3DCgphWsp4OyB5pxF7ImUHHC7luATNfACFiK9qCvMRX1Ot0j4Ll64HUwVWaTfYbS00QyWPZLxwmGIAvh0y+9odu699oAb047p1XG1Q5eQa4qYrlxKGDeGUdWjK0C8qqeVHMAa8FK3xGukPYNersUbQ5E/eQqD7o6m51xR8AzhZ1lwWdW6PPAN51sH9o/MSvGZTmYAOWsErhSKZ0Eb613oG/rfxrvuBH3tFAqHva/cjNPznukieWCHrD5OUXlM48MEK2Ht8rFXs2HG6ZDdMNUMJuz15H5HQ3Plt1KYLy6b6Y6a7NtE1VWGvlmhT1Quzeudkb4lyYMC7DBCE4cZtMBlAgMBAAECggEAAfjNjfTz/JWBtryHPnGX4dKUnFC5xTs1hLA8W5KuNhshiHGNBa9qMc2O/kPi9M0Wp0QBQLUVGimf51kw2AFCaPuvArjfFG2pAnfcK7m4rkOaUJ7AO8QbBQVoqcNThTTJbV/L6f5gxb4F8tT+z0xOr0aBEA/7vwQY4U9ovTE60krIDbd3hE2Eh8RdrKebLrUvvGZ2LPFF3suuGbHHhQwRIzF8Enfa5TjyEJxGz3C3cdCEDjhA/tbMh05egeDhu1qu+Nx1FXzcyc/bFTKF2qPXeE27rclw8U07wggiegHPntJJ9Fgso918f0n8URlzhwpRQ5EjbBNOiVjkKGxQD0rLGQKBgQDl81Jk1iw2WWMuBxZKtxy43sXKjWY8umhrhK0gDjfRXokppCf91+tC3t/7BEc+X8HuAEYCuPs+tnv0XYdhfOeBpy/GHB7NQqYqCiu3Ptm3KnIm/q+CnnPA1HY7222Sa/9NptbfOfrPIlINnglAwjpZ2tn5h0uNvZfMP4Yh+x6aTwKBgQDLyKADd6Iw5jshwVF2SIlv/qHH5w8UKFmkLDT5l6RAqIg0mqY5tPpOEm5JohfYRmp9+ny4U8+V0CNNehN7FLreLJm5ksDvcOuIlEXPCzuEzyO8tkHFuW1pXLcdNnzZmdQ3S8o0mDllegEbwV0OK10RcJ96NRJnngNYp7rohrUxCwKBgHAvHmJtjpJRV66r7Hc1EIEsxehExb0Y4DqcNu4toZO2gEpdeNlBztgH7dQDyVIn22/mmEFZx9FXq++S9apdCoDZdNg8/dX8Dx7xaVR0CDlxLtHRbQTXkvdfb/NR4QoPQDW9EJVFLxSA1PEpya/bUiZmO/OdywFynq0ZzLGlVs/HAoGBALyLV2Fd4vaTTcqhbpmd62tvkIfARLdFzgqTzD/SCeq5A6yIGZvy0lRBwUDndGBqZkVA6PwyrzHRbZhVhoiuWWcOpPyJx3DCbWnkpeI2Zk8ux8Xma1xhf9WoLtQcgc9jAHJY8TFQVmqJQ1VGxq5BeM6WATe0ut6b2ETCi7BwUlyZAoGAV4kL7eiV2rcHa8IROWh8oo+8fgPMb5MSmbU78n/o4tXRTdUmg/6ghE1t9dWK867/PEubVFEvO8F15oQvwLHYdD+SPeLmp/CLf20jzNSjkImFxMG7xmnpre5+sfgIGjioI1rFkwrVk7II7GfvmGpDTbOSLWeiymdFsmmPnjs8I5Q="
     app_public_cert_content: |
       -----BEGIN CERTIFICATE-----

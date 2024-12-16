@@ -20,7 +20,7 @@ type Cfg struct {
 	LogLevel           string         `yaml:"log_level"`
 	ReloadInterval     xtime.Duration `yaml:"reload_interval"`
 	ReloadLongInterval xtime.Duration `yaml:"reload_long_interval"`
-	WxNotifyUrl        string         `json:"wx_notify_url"`
+	WxNotifyUrl        string         `yaml:"wx_notify_url"`
 }
 
 type Redis struct {

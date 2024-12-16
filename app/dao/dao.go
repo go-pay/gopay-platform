@@ -14,25 +14,30 @@ type Dao struct {
 }
 
 func New(c *conf.Config) (d *Dao) {
-	db := orm.InitGorm(c.MySQL.Gopay)
+	bizdb := orm.InitGorm(c.MySQL.BizDB)
+	paydb := orm.InitGorm(c.MySQL.PayDB)
 	//rds := orm.InitRedis(c.Redis.Gopay)
 
 	d = &Dao{
-		cfg:     c,
-		GopayDB: db,
+		cfg:   c,
+		BizDB: bizdb,
+		PayDB: paydb,
 		//GopayRds: rds,
 	}
 	return
 }
 
 func (d *Dao) Close() {
-	if d.GopayDB != nil {
-		db, _ := d.GopayDB.DB()
+	if d.BizDB != nil {
+		db, _ := d.BizDB.DB()
 		if db != nil {
 			db.Close()
 		}
 	}
-	if d.GopayRds != nil {
-		d.GopayRds.Close()
+	if d.PayDB != nil {
+		db, _ := d.PayDB.DB()
+		if db != nil {
+			db.Close()
+		}
 	}
 }

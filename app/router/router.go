@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-pay/ecode"
 	"github.com/go-pay/web"
-	"github.com/go-pay/web/middleware"
 )
 
 var svc *service.Service
@@ -15,7 +14,6 @@ func NewHttpServer(s *service.Service) (g *web.GinEngine) {
 	svc = s
 	g = web.InitGin(s.Config.Http)
 	g.Gin.TrustedPlatform = "x_forwarded_for"
-	g.Gin.Use(middleware.CORS())
 
 	ecode.Success = ecode.New(0, "SUCCESS", "success")
 	initRoute(g.Gin)
@@ -23,7 +21,7 @@ func NewHttpServer(s *service.Service) (g *web.GinEngine) {
 }
 
 func initRoute(g *gin.Engine) {
-	monitor := g.Group("/gopay/v1/monitor")
+	monitor := g.Group("/v1/pay/monitor")
 	{
 		monitor.GET("/ping", func(c *gin.Context) { web.JSON(c, "PingOK: "+c.ClientIP(), nil) })
 	}
@@ -59,6 +57,13 @@ func initRoute(g *gin.Engine) {
 				wx.POST("/getPaymentQrcode", wxGetPaymentQrcode) // 获取微信支付二维码
 			}
 		}
+
+		// 商品相关
+		goods := v1.Group("/goods")
+		{
+			goods.POST("/getGoodsList", goodsGetGoodsList) // 获取商品列表
+		}
+
 		// 订单相关
 		order := v1.Group("/order")
 		{

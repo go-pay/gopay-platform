@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"github.com/go-pay/gopay/wechat/v3"
+	"gopay/app/dm"
 	"gopay/ecode"
 	"strings"
 
@@ -70,20 +71,33 @@ func (s *Service) AlipayPagePayUrl(c context.Context, req *model.AlipayPagePayUr
 }
 
 // WxGetPaymentQrCode 支付码获取(用户扫码支付)
-func (s *Service) WxGetPaymentQrCode(c context.Context, req *model.WxGetPaymentQrCodeReq) (rsp *model.AlipayGetPaymentQrcodeRsp, err error) {
+func (s *Service) WxGetPaymentQrCode(c context.Context, req *model.WxGetPaymentQrCodeReq) (rsp *model.WxGetPaymentQrcodeRsp, err error) {
 	// goods id 查询商品
-	s.dao.GoodsById(req.GoodsId)
-
-
+	//sg, err := s.dao.GoodsById(c, req.GoodsId)
+	//if err != nil && !errors.Is(err, orm.ErrRecordNotFound) {
+	//	xlog.Errorf("s.dao.GoodsById(%d), err:%v", req.GoodsId, err)
+	//	return nil, ecode.ServerErr
+	//}
+	sg := &dm.ShopGoods{
+		ID:        req.GoodsId,
+		GoodsName: "商品1",
+		GoodsDesc: "我是商品1",
+		UnitPrice: 1,
+	}
 	// 生成单号
 	tradeNo := strings.ReplaceAll(uuid.New().String(), "-", "")
 	xlog.Infof("tradeNo: %s, goods_id: %d", tradeNo, req.GoodsId)
 	// 构造参数
 	bm := make(gopay.BodyMap)
-	bm.Set("out_trade_no", tradeNo).
-		Set("description", "商品1").
+	bm.Set("appid", s.Config.PayPlatform.Wechat.Appid).
+		Set("out_trade_no", tradeNo).
+		Set("description", sg.GoodsName+":"+sg.GoodsDesc).
 		Set("notify_url", s.Config.Cfg.WxNotifyUrl).
-		Set("amount", amount)
+		SetBodyMap("amount", func(bm gopay.BodyMap) {
+			bm.Set("total", sg.UnitPrice).
+				Set("currency", "CNY")
+		})
+
 	// 发起支付
 	wxRsp, err := s.wxpay.V3TransactionNative(c, bm)
 	if err != nil {
@@ -95,9 +109,9 @@ func (s *Service) WxGetPaymentQrCode(c context.Context, req *model.WxGetPaymentQ
 	}
 	xlog.Warnf("Wechat order success, tradeNo: %s, codeUrl: %s", tradeNo, wxRsp.Response.CodeUrl)
 	// return
-	rsp = &model.AlipayGetPaymentQrcodeRsp{
-		OutTradeNo: aliRsp.Response.OutTradeNo,
-		QrCode:     aliRsp.Response.QrCode,
+	rsp = &model.WxGetPaymentQrcodeRsp{
+		OutTradeNo: tradeNo,
+		QrCode:     wxRsp.Response.CodeUrl,
 	}
 	return rsp, nil
 }
