@@ -50,10 +50,10 @@ mysql:
 # 支付平台信息配置
 pay_platform:
   wechat:
-    appid: "wxc2589951472b8802"
-    mch_id: "1641941819"
-    serial_no: "5754E217E08C858F4D5302485152C6DE57E955C3"
-    api_v3_key: "adcgbhkml123456jgfdcjuiljgfdcjil"
+    appid: ""
+    mch_id: ""
+    serial_no: ""
+    api_v3_key: ""
     key_file_content: |
       -----BEGIN PRIVATE KEY-----
       MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC4mfL8EmLG9Qo9
