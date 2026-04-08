@@ -206,5 +206,10 @@ func initRoute(g *gin.Engine) {
 				sysLog.POST("/export", OperationLogger("system", "export", "导出操作日志"), systemLogExport)
 			}
 		}
+		// 文件相关
+		file := v1.Group("/file")
+		{
+			file.POST("/upload", fileUpload) // 文件上传
+		}
 	}
 }
