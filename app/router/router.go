@@ -50,5 +50,10 @@ func initRoute(g *gin.Engine) {
 				ali.POST("/getPagePayUrl", alipayPagePayUrl)          // 获取支付宝网页支付链接
 			}
 		}
+		// 文件相关
+		file := v1.Group("/file")
+		{
+			file.POST("/upload", fileUpload) // 文件上传
+		}
 	}
 }
