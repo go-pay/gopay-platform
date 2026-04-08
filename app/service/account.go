@@ -19,7 +19,7 @@ var jwtSecret = []byte("gopay-platform-secret-key-2026")
 
 // 内置账号，数据库不可用时使用
 var builtinAccounts = map[string]*dm.Account{
-	"admin": {ID: 1, Uname: "admin", Pwd: "admin", Phone: "13800000001"},
+	"admin": {ID: 1, Uname: "admin", Pwd: "admin", RealName: "超级管理员", Phone: "13800000001", Role: "admin", Status: 1},
 }
 
 // getAccount 获取账户，优先数据库，fallback 内置账号
@@ -31,7 +31,6 @@ func (s *Service) getAccount(ctx context.Context, uname string) (*dm.Account, er
 	if account != nil {
 		return account, nil
 	}
-	// 数据库不可用或用户不存在，尝试内置账号
 	if acc, ok := builtinAccounts[uname]; ok {
 		return acc, nil
 	}
@@ -48,6 +47,9 @@ func (s *Service) Login(ctx context.Context, req *model.LoginReq) (*model.LoginR
 	if account == nil {
 		return nil, ec.LoginFailed
 	}
+	if account.Status == 0 {
+		return nil, ec.LoginFailed
+	}
 
 	// 验证密码：优先 bcrypt，兼容明文
 	if errBcrypt := bcrypt.CompareHashAndPassword([]byte(account.Pwd), []byte(req.Password)); errBcrypt != nil {
@@ -56,8 +58,11 @@ func (s *Service) Login(ctx context.Context, req *model.LoginReq) (*model.LoginR
 		}
 	}
 
-	// 生成 JWT token
+	// 更新最后登录时间
 	now := time.Now()
+	_ = s.dao.UpdateAccountLastLogin(ctx, account.ID, now)
+
+	// 生成 JWT token
 	claims := jwt.MapClaims{
 		"uid":   account.ID,
 		"uname": account.Uname,
@@ -73,10 +78,13 @@ func (s *Service) Login(ctx context.Context, req *model.LoginReq) (*model.LoginR
 	return &model.LoginRsp{
 		Token: token,
 		UserInfo: &model.UserInfo{
-			ID:       account.ID,
-			Username: account.Uname,
-			Phone:    account.Phone,
-			Role:     "admin",
+			ID:        account.ID,
+			Username:  account.Uname,
+			RealName:  account.RealName,
+			Phone:     account.Phone,
+			Email:     account.Email,
+			Role:      account.Role,
+			LastLogin: now.Format("2006-01-02 15:04:05"),
 		},
 	}, nil
 }
@@ -108,10 +116,55 @@ func (s *Service) GetUserInfo(ctx context.Context, tokenStr string) (*model.User
 		return nil, ec.TokenInvalid
 	}
 
+	lastLogin := ""
+	if account.LastLogin != nil {
+		lastLogin = account.LastLogin.Format("2006-01-02 15:04:05")
+	}
+
 	return &model.UserInfo{
-		ID:       account.ID,
-		Username: account.Uname,
-		Phone:    account.Phone,
-		Role:     "admin",
+		ID:        account.ID,
+		Username:  account.Uname,
+		RealName:  account.RealName,
+		Phone:     account.Phone,
+		Email:     account.Email,
+		Role:      account.Role,
+		LastLogin: lastLogin,
 	}, nil
+}
+
+// ChangePwd 修改密码
+func (s *Service) ChangePwd(ctx context.Context, uid int64, req *model.ChangePwdReq) error {
+	if req.NewPassword != req.ConfirmPassword {
+		return ec.RequestErr
+	}
+	account, err := s.dao.GetAccountByID(ctx, uid)
+	if err != nil {
+		xlog.Errorf("ChangePwd GetAccountByID(%d), err:%v", uid, err)
+		return ec.ServerErr
+	}
+	if account == nil {
+		return ec.NotFound
+	}
+	// 验证旧密码：优先 bcrypt，兼容明文
+	if errBcrypt := bcrypt.CompareHashAndPassword([]byte(account.Pwd), []byte(req.OldPassword)); errBcrypt != nil {
+		if account.Pwd != req.OldPassword {
+			return ec.LoginFailed
+		}
+	}
+	hash, err := bcrypt.GenerateFromPassword([]byte(req.NewPassword), bcrypt.DefaultCost)
+	if err != nil {
+		xlog.Errorf("ChangePwd bcrypt.GenerateFromPassword, err:%v", err)
+		return ec.ServerErr
+	}
+	return s.dao.UpdateAccountPwd(ctx, uid, string(hash))
+}
+
+// UpdateProfile 更新个人资料
+func (s *Service) UpdateProfile(ctx context.Context, uid int64, req *model.ProfileReq) error {
+	return s.dao.UpdateAccountProfile(ctx, uid, req.RealName, req.Phone, req.Email)
+}
+
+// CreateOperationLog 创建操作日志
+func (s *Service) CreateOperationLog(log *dm.OperationLog) error {
+	return s.dao.CreateOperationLog(log)
 }
