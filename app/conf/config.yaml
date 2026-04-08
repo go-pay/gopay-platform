@@ -28,7 +28,7 @@ redis:
 # MySQL数据库连接配置
 mysql:
   gopay:
-    dsn: "root:@tcp(127.0.0.1:3306)/gopay?timeout=15s&readTimeout=15s&writeTimeout=15s&parseTime=true&loc=Local&charset=utf8mb4"
+    dsn: "root:root123456@tcp(127.0.0.1:3306)/gopay?timeout=15s&readTimeout=15s&writeTimeout=15s&parseTime=true&loc=Local&charset=utf8mb4"
     max_open_conn: 200
     max_idle_conn: 50
     max_conn_timeout: "15s"
