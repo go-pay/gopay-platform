@@ -11,6 +11,7 @@ import (
 	ec "gopay/errcode"
 
 	"github.com/go-pay/xlog"
+	"github.com/go-pay/xtime"
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -118,7 +119,7 @@ func (s *Service) GetUserInfo(ctx context.Context, tokenStr string) (*model.User
 
 	lastLogin := ""
 	if account.LastLogin != nil {
-		lastLogin = account.LastLogin.Format("2006-01-02 15:04:05")
+		lastLogin = account.LastLogin.Time().Format(xtime.TimeLayout)
 	}
 
 	return &model.UserInfo{
