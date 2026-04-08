@@ -17,7 +17,7 @@ var (
 
 func TestMain(m *testing.M) {
 	os.Setenv("RUNTIME_ENV", "local")
-	flag.Set("conf", "../cfg/config.yaml")
+	flag.Set("conf", "../conf/config.yaml")
 	if err := config.ParseYaml(conf.Conf); err != nil {
 		panic(err)
 	}

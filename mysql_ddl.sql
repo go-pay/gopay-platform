@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `account`
 (
     `id`    BIGINT      NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
     `uname` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '用户名',
-    `pwd`   VARCHAR(32) NOT NULL DEFAULT '' COMMENT '密码',
+    `pwd`   VARCHAR(255) NOT NULL DEFAULT '' COMMENT '密码(bcrypt hash)',
     `phone` VARCHAR(16) NOT NULL DEFAULT '' COMMENT '手机号',
     `ctime` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `utime` TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
@@ -110,3 +110,10 @@ CREATE TABLE IF NOT EXISTS payment_order
     KEY `idx_transaction_id` (`transaction_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT '支付订单表';
+
+
+-- 如果已有 account 表且 pwd 字段为 VARCHAR(32)，执行以下变更：
+-- ALTER TABLE `account` MODIFY COLUMN `pwd` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '密码(bcrypt hash)';
+
+-- 初始管理员账号（密码: admin，明文存储，首次登录后建议改为 bcrypt hash）
+INSERT IGNORE INTO `account` (`uname`, `pwd`, `phone`) VALUES ('admin', 'admin', '13800000001');

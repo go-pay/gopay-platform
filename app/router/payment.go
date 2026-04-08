@@ -2,7 +2,7 @@ package router
 
 import (
 	"gopay/app/model"
-	"gopay/ecode"
+	"gopay/errcode"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-pay/web"
@@ -14,7 +14,7 @@ func alipayGetPaymentQrcode(c *gin.Context) {
 	err := c.ShouldBindJSON(req)
 	if err != nil {
 		xlog.Errorf("c.ShouldBindJSON(%v), err:%v", req, err)
-		web.JSON(c, nil, ecode.RequestErr)
+		web.JSON(c, nil, errcode.RequestErr)
 		return
 	}
 	rsp, err := svc.AlipayGetPaymentQrCode(c, req)
@@ -30,7 +30,7 @@ func alipayPagePayUrl(c *gin.Context) {
 	err := c.ShouldBindJSON(req)
 	if err != nil {
 		xlog.Errorf("c.ShouldBindJSON(%v), err:%v", req, err)
-		web.JSON(c, nil, ecode.RequestErr)
+		web.JSON(c, nil, errcode.RequestErr)
 		return
 	}
 	rsp, err := svc.AlipayPagePayUrl(c, req)

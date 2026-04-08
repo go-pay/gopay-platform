@@ -1,8 +1,8 @@
 package model
 
 type AlipayGetPaymentQrcodeReq struct {
-	Subject string `json:"subject"`
-	Money   int64  `json:"money"` // 分
+	Subject string `json:"subject" binding:"required"`
+	Money   int64  `json:"money" binding:"required,min=1"` // 分
 }
 
 type AlipayGetPaymentQrcodeRsp struct {
@@ -11,8 +11,8 @@ type AlipayGetPaymentQrcodeRsp struct {
 }
 
 type AlipayPagePayUrlReq struct {
-	Subject string `json:"subject"`
-	Money   int64  `json:"money"` // 分
+	Subject string `json:"subject" binding:"required"`
+	Money   int64  `json:"money" binding:"required,min=1"` // 分
 }
 
 type AlipayPagePayUrlRsp struct {

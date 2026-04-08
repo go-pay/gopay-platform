@@ -1,7 +1,6 @@
 package service
 
 import (
-	"context"
 	"sync"
 
 	"gopay/app/conf"
@@ -24,11 +23,6 @@ type Service struct {
 	// cache
 	kvMap smap.Map[string, string] // key: k, value: v
 }
-
-var (
-	srv *Service
-	ctx = context.Background()
-)
 
 func New(c *conf.Config) (s *Service) {
 	// 初始化支付宝 client
@@ -61,16 +55,14 @@ func New(c *conf.Config) (s *Service) {
 	//	panic(err)
 	//}
 
-	srv = &Service{
+	s = &Service{
 		Cfg:    c,
 		dao:    dao.New(c),
 		alipay: alipayCli,
 		//wxpay:  wxCli,
 	}
 
-	// loop job
-	srv.initLoop()
-	return srv
+	return s
 }
 
 // Close 关闭相关资源
@@ -78,9 +70,4 @@ func (s *Service) Close() {
 	if s.dao != nil {
 		s.dao.Close()
 	}
-}
-
-// 初始化 loop
-func (s *Service) initLoop() {
-	// 初始化 loop
 }
