@@ -9,7 +9,6 @@ import (
 	ec "gopay/errcode"
 
 	"github.com/go-pay/xlog"
-	"github.com/go-pay/xtime"
 )
 
 // channelToResp 将 dm 转为响应 DTO（处理 payMethods 逗号分隔→数组）
@@ -28,7 +27,7 @@ func channelToResp(ch *dm.PaymentChannel) *model.ChannelResp {
 		FeeRate:    ch.FeeRate,
 		Status:     ch.Status,
 		Remark:     ch.Remark,
-		Ctime:      ch.Ctime.Time().Format(xtime.TimeLayout),
+		Ctime:      ch.Ctime,
 	}
 }
 

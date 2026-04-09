@@ -1,5 +1,7 @@
 package model
 
+import "github.com/go-pay/xtime"
+
 // ---- 支付通道 ----
 
 type ChannelListReq struct {
@@ -45,17 +47,17 @@ type ChannelConfigReq struct {
 
 // ChannelResp 通道响应（payMethods 转为数组）
 type ChannelResp struct {
-	ID           int64    `json:"id"`
-	Name         string   `json:"name"`
-	Code         string   `json:"code"`
-	Type         string   `json:"type"`
-	MerchantID   int64    `json:"merchantId"`
-	MerchantName string   `json:"merchantName"`
-	PayMethods   []string `json:"payMethods"`
-	FeeRate      float64  `json:"feeRate"`
-	Status       int8     `json:"status"`
-	Remark       string   `json:"remark"`
-	Ctime        string   `json:"ctime"`
+	ID           int64      `json:"id"`
+	Name         string     `json:"name"`
+	Code         string     `json:"code"`
+	Type         string     `json:"type"`
+	MerchantID   int64      `json:"merchantId"`
+	MerchantName string     `json:"merchantName"`
+	PayMethods   []string   `json:"payMethods"`
+	FeeRate      float64    `json:"feeRate"`
+	Status       int8       `json:"status"`
+	Remark       string     `json:"remark"`
+	Ctime        xtime.Time `json:"ctime"`
 }
 
 // ChannelDetailResp 通道详情（含配置）
