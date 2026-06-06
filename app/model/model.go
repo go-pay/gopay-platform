@@ -1,5 +1,7 @@
 package model
 
+import "github.com/go-pay/xtime"
+
 // LoginReq 登录请求
 type LoginReq struct {
 	Username string `json:"username" binding:"required"`
@@ -14,13 +16,14 @@ type LoginRsp struct {
 
 // UserInfo 用户信息
 type UserInfo struct {
-	ID        int64  `json:"id"`
-	Username  string `json:"username"`
-	RealName  string `json:"realName"`
-	Phone     string `json:"phone"`
-	Email     string `json:"email"`
-	Role      string `json:"role"`
-	LastLogin string `json:"lastLogin"`
+	ID        int64      `json:"id"`
+	Username  string     `json:"username"`
+	RealName  string     `json:"realName"`
+	Phone     string     `json:"phone"`
+	Email     string     `json:"email"`
+	Role      string     `json:"role"`
+	Perms     []string   `json:"perms"`
+	LastLogin xtime.Time `json:"lastLogin"`
 }
 
 // ChangePwdReq 修改密码请求

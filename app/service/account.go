@@ -85,9 +85,29 @@ func (s *Service) Login(ctx context.Context, req *model.LoginReq) (*model.LoginR
 			Phone:     account.Phone,
 			Email:     account.Email,
 			Role:      account.Role,
-			LastLogin: now.Format("2006-01-02 15:04:05"),
+			Perms:     s.loadUserPerms(ctx, account.Role),
+			LastLogin: xtime.Time(now.Unix()),
 		},
 	}, nil
+}
+
+// loadUserPerms 加载用户权限列表，admin 返回 ["*"]
+func (s *Service) loadUserPerms(ctx context.Context, roleCode string) []string {
+	if roleCode == "admin" {
+		return []string{"*"}
+	}
+	if roleCode == "" {
+		return []string{}
+	}
+	role, err := s.dao.GetRoleByCode(ctx, roleCode)
+	if err != nil || role == nil {
+		return []string{}
+	}
+	perms, err := s.dao.GetRolePerms(ctx, role.ID)
+	if err != nil || perms == nil {
+		return []string{}
+	}
+	return perms
 }
 
 // GetUserInfo 获取用户信息（从 token 解析）
@@ -117,9 +137,9 @@ func (s *Service) GetUserInfo(ctx context.Context, tokenStr string) (*model.User
 		return nil, ec.TokenInvalid
 	}
 
-	lastLogin := ""
+	var lastLogin xtime.Time
 	if account.LastLogin != nil {
-		lastLogin = account.LastLogin.Time().Format(xtime.TimeLayout)
+		lastLogin = *account.LastLogin
 	}
 
 	return &model.UserInfo{
@@ -129,6 +149,7 @@ func (s *Service) GetUserInfo(ctx context.Context, tokenStr string) (*model.User
 		Phone:     account.Phone,
 		Email:     account.Email,
 		Role:      account.Role,
+		Perms:     s.loadUserPerms(ctx, account.Role),
 		LastLogin: lastLogin,
 	}, nil
 }
